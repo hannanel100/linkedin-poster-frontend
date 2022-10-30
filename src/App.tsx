@@ -1,20 +1,12 @@
-import { useState } from "react";
 import "./App.css";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import axios from "axios";
-import Form from "./Form";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { CustomRoutes } from "./routes/routes";
 function App() {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Form />
+      <CustomRoutes />
     </QueryClientProvider>
   );
 }
