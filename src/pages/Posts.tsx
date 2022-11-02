@@ -64,7 +64,6 @@ const StyledX = styled.span`
 `;
 const Posts = () => {
   const query = useQuery(["posts"], fetchPosts);
-  // const {posts} = query;
   const deletePostHandler = async (id: string) => {
     console.log(id);
     await axios.delete(`http://localhost:5000/api/posts/${id}`);

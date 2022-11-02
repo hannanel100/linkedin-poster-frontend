@@ -46,7 +46,7 @@ const NavBar = ({ isHome }: StyledNavProps) => {
     <StyledNav isHome={isHome}>
       {/* links to pages /post, /posts, /about */}
       {!isHome && (
-        <StyledLink to="/" isHome={isHome}>
+        <StyledLink to="/" isHome={false}>
           Home
         </StyledLink>
       )}

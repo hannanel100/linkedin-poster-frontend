@@ -21,7 +21,7 @@ const StyledCard = styled.div`
   display: grid;
   place-content: center;
   padding: 2rem;
-  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg, #02c7c8 0%, #bc3cc5 100%);
   border-radius: 1rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 `;
