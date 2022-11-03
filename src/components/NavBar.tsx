@@ -13,7 +13,8 @@ const StyledNav = styled.nav<StyledNavProps>`
   display: flex;
   flex-direction: column;
   width: ${(props) => (props.isHome ? "100%" : "20%")};
-  height: 100vh;
+  /* height: 100vh; */
+  gap: 10rem;
   justify-content: space-evenly;
   align-items: ${(props) => (props.isHome ? "center" : "flex-start")};
 `;

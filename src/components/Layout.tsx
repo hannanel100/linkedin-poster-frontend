@@ -8,6 +8,7 @@ const StyledContainer = styled.div`
   flex-direction: row;
   width: 100%;
   height: 100vh;
+  flex: 6 1 auto;
 `;
 const Layout = () => {
   // get the path from the url, if it is "/" don't show sidebar, if it is, show it

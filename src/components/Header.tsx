@@ -19,6 +19,7 @@ const StyledHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  flex: 1 1 auto;
   gap: 1rem;
   width: 100%;
   height: 90px;
@@ -43,7 +44,7 @@ const StyledImageContainer = styled.div`
   border-radius: 50%;
   overflow: hidden;
   margin-right: 25px;
-  background: linear-gradient(180deg, #02C7C8 0%, #BC3CC5 100%);
+  background: linear-gradient(180deg, #02c7c8 0%, #bc3cc5 100%);
   position: relative;
   cursor: pointer;
 `;

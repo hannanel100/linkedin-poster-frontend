@@ -7,6 +7,7 @@ const StyledHomeContainer = styled.div`
   height: 100%;
   display: grid;
   place-content: center;
+  
 `;
 const Home = () => {
   const { accessTokenQuery } = useAccessTokenQuery(undefined);
