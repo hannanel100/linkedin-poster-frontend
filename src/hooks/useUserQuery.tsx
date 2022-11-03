@@ -132,5 +132,8 @@ export const useUserQuery = () => {
       },
     }
   );
+  
+
+
   return { userQuery, user: userQuery.data };
 };

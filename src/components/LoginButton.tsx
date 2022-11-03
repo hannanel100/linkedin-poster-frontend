@@ -62,8 +62,9 @@ const LoginButton = () => {
       enabled: !!accessToken?.access_token,
     }
   );
-  const { accessTokenQuery } = useAccessTokenQuery(code);
+  const { accessTokenQuery, tokenIntrospectQuery } = useAccessTokenQuery(code);
   // setAccessToken(accessTokenQuery.data);
+  console.log(tokenIntrospectQuery.data);
   const { linkedInLogin } = useLinkedIn({
     clientId: "77oz8xd2w9jzop",
     redirectUri: `http://localhost:5173/linkedin`,

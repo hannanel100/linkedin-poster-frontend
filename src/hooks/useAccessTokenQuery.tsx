@@ -18,5 +18,25 @@ export const useAccessTokenQuery = (code: string | undefined) => {
       },
     }
   );
-  return { accessTokenQuery, accessToken: accessTokenQuery.data };
+  const tokenIntrospectQuery = useQuery(
+    ["tokenIntrospect"],
+    async () => {
+      const { data } = await axios.get(
+        `http://localhost:5000/api/auth/accessToken/introspect/${accessTokenQuery.data?.access_token}`
+      );
+      return data;
+    },
+    {
+      enabled: !!accessTokenQuery.data?.access_token,
+      onSuccess: (data) => {
+        queryClient.setQueryData(["tokenIntrospect"], data);
+      },
+    }
+  );
+  return {
+    accessTokenQuery,
+    accessToken: accessTokenQuery.data,
+    tokenIntrospectQuery,
+    tokenIntrospect: tokenIntrospectQuery.data,
+  };
 };

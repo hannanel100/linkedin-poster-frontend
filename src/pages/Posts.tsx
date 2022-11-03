@@ -13,6 +13,7 @@ export interface Posts {
 export interface Post {
   __v: number;
   _id: string;
+  id: string;
   content: string;
   date: string;
   image: string;
@@ -64,9 +65,9 @@ const StyledX = styled.span`
 `;
 const Posts = () => {
   const query = useQuery(["posts"], fetchPosts);
-  const deletePostHandler = async (id: string) => {
-    console.log(id);
-    await axios.delete(`http://localhost:5000/api/posts/${id}`);
+  const deletePostHandler = async (_id: string) => {
+    console.log(_id);
+    await axios.delete(`http://localhost:5000/api/posts/${_id}`);
     query.refetch();
   };
   return (

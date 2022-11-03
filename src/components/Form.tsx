@@ -7,6 +7,7 @@ import { TextArea } from "./TextArea";
 import { ImageInput } from "./ImageInput";
 import { DateInput } from "./DateInput";
 import { ImagePreview } from "./ImagePreview";
+import { useUserQuery } from "../hooks/useUserQuery";
 const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -21,13 +22,13 @@ const StyledCard = styled.div`
   display: grid;
   place-content: center;
   padding: 2rem;
-  background: linear-gradient(180deg, #02c7c8 0%, #bc3cc5 100%);
+  background: var(--gradient);
   border-radius: 1rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 `;
 const Form = () => {
   const queryClient = useQueryClient();
-
+  const { user } = useUserQuery();
   // state for text input
   const [text, setText] = useState("");
   //state for image
@@ -68,6 +69,7 @@ const Form = () => {
         content: text,
         image: convertedImage,
         date: date,
+        id: user?.id, 
       });
     },
 
