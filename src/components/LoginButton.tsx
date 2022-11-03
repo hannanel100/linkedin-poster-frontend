@@ -7,30 +7,43 @@ import axios from "axios";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
 import styled from "styled-components";
 import LoadingSpinner from "./LoadingSpinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
+
 // axios with body to https://www.linkedin.com/oauth/v2/accessToken'
 type accessToken = {
   access_token: string;
   expires_in: number;
 };
 const StyledButtonContainer = styled.div`
-  width: 260px;
+  width: 300px;
   height: 70px;
   display: grid;
   place-content: center;
   overflow: hidden;
   border-radius: 1rem;
-  background: linear-gradient(180deg, #02c7c8 0%, #BC3CC5 100%);
+  background: var(--gradient);
+  &:hover {
+    transform: scale(1.2);
+    transition: transform 0.8s ease-in-out;
+  }
 `;
 const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   background-color: inherit;
   transition: none;
+  color: #242424;
+  font-weight: 700;
+  font-size: 1.1rem;
   /* scale button when clicked */
-  transform: scale(1);
-  transition: transform 0.2s ease-in-out;
+
   &:hover {
     border: none;
   }
 `;
+
 const LoginButton = () => {
   const [accessToken, setAccessToken] = useState<accessToken | undefined>(
     undefined
@@ -74,7 +87,8 @@ const LoginButton = () => {
   return (
     <StyledButtonContainer>
       <StyledButton onClick={linkedInLogin}>
-        <img src="/Sign-in-Large.png" />
+        <FontAwesomeIcon icon={faLinkedin} size="3x" color="#242424" />
+        Sign in with Linkedin
       </StyledButton>
     </StyledButtonContainer>
   );
