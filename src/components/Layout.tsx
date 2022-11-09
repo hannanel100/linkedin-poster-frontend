@@ -9,6 +9,10 @@ const StyledContainer = styled.div`
   width: 100%;
   height: 100vh;
   flex: 6 1 auto;
+  /* media query for mobile, change direction to column */
+  @media (max-width: 768px) {
+    display: block;
+  }
 `;
 const Layout = () => {
   // get the path from the url, if it is "/" don't show sidebar, if it is, show it

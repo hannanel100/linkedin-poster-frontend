@@ -4,7 +4,7 @@ import Form from "../components/Form";
 const Post = () => {
   return (
     <>
-      <Form postId={undefined} />
+      <Form postId={undefined} setPostId={undefined} />
     </>
   );
 };

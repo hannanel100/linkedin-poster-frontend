@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal";
 import { usePostQuery } from "../hooks/usePostQuery";
+import LoadingSpinner from "../components/LoadingSpinner";
 export interface Posts {
   message: string;
   posts: Post[];
@@ -30,6 +31,11 @@ const StyledDiv = styled.div`
   display: grid;
   place-content: center;
   flex: 4 2 0;
+  /* media query for mobile */
+  @media (max-width: 768px) {
+    width: 100%;
+    flex: 1 1 0;
+  }
 `;
 const StyledCard = styled.div`
   width: 50vw;
@@ -47,6 +53,14 @@ const StyledCard = styled.div`
     transform: scale(1.1);
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    flex: 1 1 0;
+  }
+`;
+const StyledUl = styled.ul`
+  margin: 0;
+  padding: 0;
 `;
 const StyledLi = styled.li`
   list-style: none;
@@ -86,9 +100,12 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   }
 `;
 const Posts = () => {
-  const { user } = useUserQuery();
   const { postQuery, posts } = usePostQuery();
-  console.log(postQuery.data);
+  const localPosts: Post[] = postQuery?.data?.posts.sort((a: Post, b: Post) =>
+    // sort posts by date using dayjs
+    dayjs(a.date).isAfter(dayjs(b.date)) ? 1 : -1
+  );
+
   const [openModal, setOpenModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState<string | undefined>(
     undefined
@@ -99,7 +116,6 @@ const Posts = () => {
     postQuery.refetch();
   };
   const editPostHandler = async (_id: string | undefined) => {
-    console.log(_id);
     // open modal with form to edit post
     setSelectedPost(_id);
     setOpenModal(true);
@@ -107,30 +123,38 @@ const Posts = () => {
   return (
     <StyledDiv>
       {!openModal ? (
-        <ul>
-          {postQuery.data?.posts.map(
-            (post: Post) =>
-              !post.isPosted && (
-                <StyledLi key={post._id}>
-                  <StyledCard>
-                    <p>{post.content}</p>
-                    <p>{dayjs(post.date).format("DD/MM/YYYY HH:mm")}</p>
-                    {post.image && <StyledImage src={post.image} />}
-                    <StyledFontAwesomeIcon
-                      icon={faEdit}
-                      onClick={() => editPostHandler(post._id)}
-                    />
-                    <StyledFontAwesomeIcon
-                      icon={faXmark}
-                      onClick={() => deletePostHandler(post._id)}
-                    />
-                  </StyledCard>
-                </StyledLi>
-              )
+        <StyledUl>
+          {postQuery.isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            localPosts.map(
+              (post: Post) =>
+                !post.isPosted && (
+                  <StyledLi key={post._id}>
+                    <StyledCard>
+                      <p>{post.content}</p>
+                      <p>{dayjs(post.date).format("DD/MM/YYYY HH:mm")}</p>
+                      {post.image && <StyledImage src={post.image} />}
+                      <StyledFontAwesomeIcon
+                        icon={faEdit}
+                        onClick={() => editPostHandler(post._id)}
+                      />
+                      <StyledFontAwesomeIcon
+                        icon={faXmark}
+                        onClick={() => deletePostHandler(post._id)}
+                      />
+                    </StyledCard>
+                  </StyledLi>
+                )
+            )
           )}
-        </ul>
+        </StyledUl>
       ) : (
-        <Modal postId={selectedPost} />
+        <Modal
+          postId={selectedPost}
+          setPostId={setSelectedPost}
+          setOpenModal={setOpenModal}
+        />
       )}
     </StyledDiv>
   );

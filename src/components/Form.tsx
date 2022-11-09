@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components/macro";
 import { TextArea } from "./TextArea";
 import { ImageInput } from "./ImageInput";
@@ -18,25 +19,32 @@ import LoadingSpinner from "./LoadingSpinner";
 const StyledContainer = styled.div`
   width: 100%;
   /* height: 100%; */
-  padding: 1.5rem;
   flex: 4 1 0;
+  /* mobile media query */
+  @media (max-width: 768px) {
+    flex: 1 1 0;
+    width: 90vw;
+    margin: 0 auto;
+  }
 `;
 // a dark card with gradient background, in glassmorphism style
 const StyledCard = styled.div`
   width: 50vw;
-  height: 100%;
-  padding: 2rem;
+  /* height: 100%;
+  padding: 2rem; */
   background: var(--gradient);
   border-radius: 1rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-evenly;
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
   /* max-width: 400px; */
   margin: 0 auto;
   gap: 1rem;
@@ -45,8 +53,11 @@ const StyledRow = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-evenly;
+  width: 90%;
+  &:last-of-type {
+    padding-bottom: 1rem;
+  }
 `;
 const StyledLabel = styled.label`
   font-size: 1.5rem;
@@ -55,7 +66,21 @@ const StyledLabel = styled.label`
 const StyledImageIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
 `;
-const Form = ({ postId }: { postId: string | undefined }) => {
+const StyledTitle = styled.h1`
+  padding-left: 1rem;
+`;
+// type for setState function
+
+const Form = ({
+  postId,
+  setPostId,
+}: {
+  postId: string | undefined;
+  setPostId:
+    | React.Dispatch<React.SetStateAction<string | undefined>>
+    | undefined;
+}) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { user, addUserQuery } = useUserQuery();
   const { postQuery, posts } = usePostQuery();
@@ -105,8 +130,14 @@ const Form = ({ postId }: { postId: string | undefined }) => {
     isPosted: false,
   };
   const mutation = useMutation(
-    async () => {
-      axios.post("http://localhost:5000/api/posts", body);
+    async (postId: string | undefined) => {
+      if (postId) {
+        console.log("in if(postId");
+        await axios.put(`http://localhost:5000/api/posts/${postId}`, body);
+      } else {
+        console.log("in else");
+        await axios.post("http://localhost:5000/api/posts", body);
+      }
     },
 
     {
@@ -114,6 +145,12 @@ const Form = ({ postId }: { postId: string | undefined }) => {
         // Invalidate and refetch
         queryClient.invalidateQueries(["posts"]);
         setSuccess(true);
+        // set timer for 3 seconds then navigate to view posts
+        setTimeout(() => {
+          setSuccess(false);
+          setPostId && setPostId(undefined);
+          navigate("/posts");
+        }, 3000);
       },
       onError(error, variables, context) {
         console.log(error);
@@ -122,10 +159,13 @@ const Form = ({ postId }: { postId: string | undefined }) => {
     }
   );
   // type for event is React.FormEvent<HTMLFormElement>
-  const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (
+    e: React.FormEvent<HTMLFormElement>,
+    postId: string | undefined
+  ) => {
     e.preventDefault();
     console.log(text, image, date);
-    mutation.mutate();
+    mutation.mutate(postId);
   };
   // handle reset button
   const handleReset = () => {
@@ -152,8 +192,10 @@ const Form = ({ postId }: { postId: string | undefined }) => {
       <StyledCard>
         {!success ? (
           <>
-            <h1>{postId ? "Edit your post" : "Write your post..."}</h1>
-            <StyledForm onSubmit={handleOnSubmit}>
+            <StyledTitle>
+              {postId ? "Edit your post" : "Write your post..."}
+            </StyledTitle>
+            <StyledForm onSubmit={(e) => handleOnSubmit(e, postId)}>
               <StyledRow>
                 <StyledLabel htmlFor="text">Text</StyledLabel>
                 <TextArea

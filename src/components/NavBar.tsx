@@ -17,6 +17,16 @@ const StyledNav = styled.nav<StyledNavProps>`
   gap: 10rem;
   justify-content: space-evenly;
   align-items: ${(props) => (props.isHome ? "center" : "flex-start")};
+  /* media query for mobile phones */
+  @media (max-width: 768px) {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+    height: 10vh;
+  }
 `;
 
 const StyledLink = styled(Link)<StyledNavProps>`
@@ -39,6 +49,21 @@ const StyledLink = styled(Link)<StyledNavProps>`
     color: white;
     text-shadow: -3px -3px 0 #ffffff, 3px -3px 0 #ffffff, -3px 3px 0 #ffffff,
       3px 3px 0 #ffffff;
+  }
+  /* media query for mobile phones */
+  @media (max-width: 768px) {
+    /* change text to icons */
+    font-size: 1.5rem;
+    padding: 0;
+    /* remove hover */
+    &:hover {
+      font-size: 1.5rem;
+      padding: 0;
+      text-shadow: none;
+    }
+    &:active {
+      color: white;
+    }
   }
 
   /* reverse hover effect when leaving */
