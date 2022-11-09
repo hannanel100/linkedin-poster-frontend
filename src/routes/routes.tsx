@@ -9,18 +9,21 @@ import { About, Home, NoMatch, Post, Posts } from "../pages";
 
 import Layout from "../components/Layout";
 import LinkedinCallbackWrapper from "../components/LinkedinCallbackWrapper";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 export const CustomRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="about" element={<About />} />
-        <Route path="post" element={<Post />} />
-        <Route path="posts" element={<Posts />} />
-        {/* Using path="*"" means "match anything", so this route
+        <Route element={<ProtectedRoutes />}>
+          <Route path="about" element={<About />} />
+          <Route path="post" element={<Post />} />
+          <Route path="posts" element={<Posts />} />
+          {/* Using path="*"" means "match anything", so this route
             acts like a catch-all for URLs that we don't have explicit
             routes for. */}
+        </Route>
         <Route path="linkedin" element={<LinkedinCallbackWrapper />} />
 
         <Route path="*" element={<NoMatch />} />
