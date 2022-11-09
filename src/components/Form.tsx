@@ -1,43 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import * as dayjs from "dayjs";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+// import image icon form fontawesome
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./Button";
 import axios from "axios";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import { TextArea } from "./TextArea";
 import { ImageInput } from "./ImageInput";
 import { DateInput } from "./DateInput";
 import { ImagePreview } from "./ImagePreview";
 import { useUserQuery } from "../hooks/useUserQuery";
+import { usePostQuery } from "../hooks/usePostQuery";
+import { Post } from "../pages/Posts";
+import LoadingSpinner from "./LoadingSpinner";
 const StyledContainer = styled.div`
   width: 100%;
-  height: 100%;
-  display: grid;
-  place-content: center;
+  /* height: 100%; */
+  padding: 1.5rem;
   flex: 4 1 0;
 `;
 // a dark card with gradient background, in glassmorphism style
 const StyledCard = styled.div`
-  width: 100%;
+  width: 50vw;
   height: 100%;
-  display: grid;
-  place-content: center;
   padding: 2rem;
   background: var(--gradient);
   border-radius: 1rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
 `;
-const Form = () => {
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  /* max-width: 400px; */
+  margin: 0 auto;
+  gap: 1rem;
+`;
+const StyledRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+`;
+const StyledLabel = styled.label`
+  font-size: 1.5rem;
+  flex: 1 1 0;
+`;
+const StyledImageIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+`;
+const Form = ({ postId }: { postId: string | undefined }) => {
   const queryClient = useQueryClient();
-  const { user } = useUserQuery();
+  const { user, addUserQuery } = useUserQuery();
+  const { postQuery, posts } = usePostQuery();
   // state for text input
   const [text, setText] = useState("");
   //state for image
   const [image, setImage] = useState("");
-  const [convertedImage, setConvertedImage] = useState("");
+  // type of converted image is string or
+  const [convertedImage, setConvertedImage] = useState<string | undefined>(
+    undefined
+  );
   //state for date-time input, type for date-time
   const [date, setDate] = useState("");
   // state for success message
   const [success, setSuccess] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const [error, setError] = useState(false);
   // define type for event is React.ChangeEvent<HTMLInputElement> or React.ChangeEvent<HTMLTextAreaElement>
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -61,16 +95,18 @@ const Form = () => {
     });
   };
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.target.value);
+    setDate(dayjs(e.target.value).format("YYYY-MM-DD HH:mm"));
+  };
+  const body: Post = {
+    content: text,
+    image: convertedImage,
+    date: date,
+    id: addUserQuery.data?.id,
+    isPosted: false,
   };
   const mutation = useMutation(
     async () => {
-      axios.post("http://localhost:5000/api/posts", {
-        content: text,
-        image: convertedImage,
-        date: date,
-        id: user?.id, 
-      });
+      axios.post("http://localhost:5000/api/posts", body);
     },
 
     {
@@ -98,60 +134,81 @@ const Form = () => {
     setDate("");
   };
 
+  useEffect(() => {
+    if (postId) {
+      console.log(postQuery.data);
+      const post = postQuery.data.posts.find(
+        (post: Post) => post._id === postId
+      );
+      if (post) {
+        setText(post.content);
+        setImage(post.image);
+        setDate(post.date);
+      }
+    }
+  }, [postId, postQuery.data]);
   return (
     <StyledContainer>
       <StyledCard>
         {!success ? (
           <>
-            <h1>Form</h1>
-            <form onSubmit={handleOnSubmit} className="form">
-              <div className="row">
-                <label htmlFor="text">Text</label>
+            <h1>{postId ? "Edit your post" : "Write your post..."}</h1>
+            <StyledForm onSubmit={handleOnSubmit}>
+              <StyledRow>
+                <StyledLabel htmlFor="text">Text</StyledLabel>
                 <TextArea
                   id="text"
                   name="text"
                   value={text}
                   onChange={handleTextChange}
                 />
-              </div>
+              </StyledRow>
 
-              <div className="row">
-                <label htmlFor="image">Image</label>
-                <ImageInput
-                  id="imageInput"
-                  name="image"
-                  onChange={handleImageChange}
-                  isUploaded={!!image}
+              <StyledRow>
+                <StyledImageIcon
+                  icon={faImage}
+                  size="2x"
+                  onClick={() => setShowImage(!showImage)}
                 />
-              </div>
-              <div className="row">
-                <ImagePreview image={image} />
-              </div>
-              <div className="row">
-                <label htmlFor="date">Date</label>
+              </StyledRow>
+              {showImage && (
+                <StyledRow>
+                  <StyledLabel htmlFor="image">Image</StyledLabel>
+                  <ImageInput
+                    id="imageInput"
+                    name="image"
+                    onChange={handleImageChange}
+                    isUploaded={!!image}
+                  />
+                </StyledRow>
+              )}
+              {!!image && (
+                <StyledRow>
+                  <ImagePreview image={image} />
+                </StyledRow>
+              )}
+              <StyledRow>
+                <StyledLabel htmlFor="date">Date</StyledLabel>
                 <DateInput
                   id="date"
                   name="date"
                   value={date}
                   onChange={handleDateChange}
                 />
-              </div>
+              </StyledRow>
               {/* submit and cancel buttons */}
-              <div className="row">
-                <Button
-                  type="submit"
-                  disabled={text === "" || image === "" || date === ""}
-                >
-                  Submit
+              <StyledRow>
+                <Button type="submit" disabled={text === "" || date === ""}>
+                  {postId ? "Edit" : "Submit"}
                 </Button>
                 <Button type="reset" onClick={handleReset} disabled={false}>
                   Cancel
                 </Button>
-              </div>
-            </form>
+              </StyledRow>
+            </StyledForm>
           </>
         ) : mutation.isLoading ? (
-          <h1>Submitting...</h1>
+          <LoadingSpinner width="8" height="8" />
         ) : (
           <h1>Success</h1>
         )}

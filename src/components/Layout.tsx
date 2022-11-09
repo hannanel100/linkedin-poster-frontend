@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;

@@ -1,5 +1,5 @@
 // TextArea componenet, with glassmorphism design, styled with styled-components
-import styled from "styled-components";
+import styled from "styled-components/macro";
 // type for props
 type TextAreaProps = {
   // onChange function
@@ -9,7 +9,6 @@ type TextAreaProps = {
   className?: string;
   // value for textarea
   value: string;
-
 };
 // styled textarea with glassmorphism effect
 const StyledTextArea = styled.textarea`
@@ -24,14 +23,26 @@ const StyledTextArea = styled.textarea`
   font-size: 1rem;
   font-weight: 600;
   padding: 1rem;
+  flex: 3 1 0;
   transition: all 0.5s ease-in-out;
   /* remove border on focus-visible */
   &:focus-visible {
     outline: none;
     border: none;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
   }
 `;
 // a textarea components, that accepts props of type TextAreaProps
 export const TextArea = ({ onChange, value, ...rest }: TextAreaProps) => {
-  return <StyledTextArea onChange={onChange} value={value} {...rest} />;
+  return (
+    <StyledTextArea
+      onChange={onChange}
+      value={value}
+      {...rest}
+      placeholder="Enter your post..."
+      rows={15}
+      cols={50}
+    />
+  );
 };

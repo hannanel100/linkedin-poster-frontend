@@ -5,10 +5,11 @@ import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import LoadingSpinner from "./LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { useUserQuery } from "../hooks/useUserQuery";
 
 // axios with body to https://www.linkedin.com/oauth/v2/accessToken'
 type accessToken = {
@@ -23,9 +24,11 @@ const StyledButtonContainer = styled.div`
   overflow: hidden;
   border-radius: 1rem;
   background: var(--gradient);
+  transform: scale(1);
+  transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
   &:hover {
     transform: scale(1.2);
-    transition: transform 0.8s ease-in-out;
+    transition: transform 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 `;
 const StyledButton = styled.button`
@@ -41,6 +44,7 @@ const StyledButton = styled.button`
 
   &:hover {
     border: none;
+    outline: none;
   }
 `;
 
@@ -50,25 +54,25 @@ const LoginButton = () => {
   );
   const [code, setCode] = useState<string | undefined>(undefined);
   // query to get user details
-  const userQuery = useQuery(
-    ["user"],
-    async () => {
-      const { data } = await axios.get(
-        `http://localhost:5000/api/users/linkedin/user/${accessToken?.access_token}`
-      );
-      return data;
-    },
-    {
-      enabled: !!accessToken?.access_token,
-    }
-  );
-  const { accessTokenQuery, tokenIntrospectQuery } = useAccessTokenQuery(code);
+  // const userQuery = useQuery(
+  //   ["user"],
+  //   async () => {
+  //     const { data } = await axios.get(
+  //       `http://localhost:5000/api/users/linkedin/user/${accessToken?.access_token}`
+  //     );
+  //     return data;
+  //   },
+  //   {
+  //     enabled: !!accessToken?.access_token,
+  //   }
+  // );
+  const { accessTokenQuery } = useAccessTokenQuery(code);
   // setAccessToken(accessTokenQuery.data);
-  console.log(tokenIntrospectQuery.data);
+  // console.log(tokenIntrospectQuery.data);
   const { linkedInLogin } = useLinkedIn({
     clientId: "77oz8xd2w9jzop",
     redirectUri: `http://localhost:5173/linkedin`,
-    scope: "r_liteprofile",
+    scope: "r_liteprofile w_member_social",
     state: "123456",
     onSuccess: async (code) => {
       console.log(code);

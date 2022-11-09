@@ -1,18 +1,16 @@
 // Header component, with name if logged in, and login/logout button
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
 import { useUserQuery } from "../hooks/useUserQuery";
-import LoginButton from "./LoginButton";
-import styled from "styled-components";
+import Logo from "../assets/pigeon_transparent.svg";
+import styled from "styled-components/macro";
 import LoadingSpinner from "./LoadingSpinner";
-const StyledTitle = styled.h1`
-  font-size: 4rem;
-  font-weight: 700;
-  font-family: "Rubik", sans-serif;
-  color: #fff;
+const StyledLogo = styled.img`
   margin-left: 25px;
   padding: 0;
   z-index: 5;
+  cursor: pointer;
 `;
 const StyledHeader = styled.div`
   display: flex;
@@ -36,6 +34,7 @@ const StyledHeader = styled.div`
     right: 0px;
     bottom: 0px;
     left: 0px;
+    transform: scaleX(-1);
   }
 `;
 const StyledImageContainer = styled.div`
@@ -47,6 +46,14 @@ const StyledImageContainer = styled.div`
   background: linear-gradient(180deg, #02c7c8 0%, #bc3cc5 100%);
   position: relative;
   cursor: pointer;
+  transition: transform 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  &:hover {
+    /* spin cubic-bezier */
+    /* bounce and spin animation */
+    transform: scale(1.2) rotate(360deg);
+    transition: transform 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 `;
 const StyledImage = styled.img`
   width: 50px;
@@ -76,17 +83,19 @@ const StyledName = styled.div`
 const Header = () => {
   const { accessTokenQuery } = useAccessTokenQuery(undefined);
   const { userQuery } = useUserQuery();
+  const navigate = useNavigate();
   console.log(userQuery.data);
   const [open, setOpen] = useState(false);
   const firstName = userQuery.data?.localizedFirstName;
   const lastName = userQuery.data?.localizedLastName;
-  const imageUrl =
-    userQuery.data?.profilePicture["displayImage~"].elements[0].identifiers[0]
-      .identifier;
+  const imageUrl = userQuery.data?.profilePicture
+    ? userQuery.data?.profilePicture["displayImage~"].elements[0].identifiers[0]
+        .identifier
+    : "/user-ninja-solid.svg";
   if (userQuery.isInitialLoading) {
     return (
       <StyledHeader>
-        <StyledTitle>Linkedin Poster</StyledTitle>
+        <StyledLogo src={Logo} />
         <StyledImageContainer>
           <LoadingSpinner width="40" height="40" />
         </StyledImageContainer>
@@ -95,7 +104,7 @@ const Header = () => {
   }
   return (
     <StyledHeader>
-      <StyledTitle>Linkedin Poster</StyledTitle>
+      <StyledLogo onClick={() => navigate("/")} src={Logo} />
       {accessTokenQuery.data ? (
         <>
           {open && (

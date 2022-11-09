@@ -132,8 +132,25 @@ export const useUserQuery = () => {
       },
     }
   );
-  
+  const addUserQuery = useQuery(
+    ["addUser"],
+    async () => {
+      const { data } = await axios.post(
+        `http://localhost:5000/api/users/linkedin/user`,
+        {
+          id: userQuery.data?.id,
+          accessToken: accessToken?.access_token,
+        }
+      );
+      return data;
+    },
+    {
+      enabled: !!accessToken?.access_token && !!userQuery.data?.id,
+      onSuccess: (data) => {
+        queryClient.setQueryData(["addUser"], data);
+      },
+    }
+  );
 
-
-  return { userQuery, user: userQuery.data };
+  return { userQuery, user: userQuery.data, addUserQuery };
 };
