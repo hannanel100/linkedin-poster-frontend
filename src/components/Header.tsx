@@ -6,6 +6,8 @@ import { useUserQuery } from "../hooks/useUserQuery";
 import Logo from "../assets/pigeon_transparent.svg";
 import styled from "styled-components/macro";
 import LoadingSpinner from "./LoadingSpinner";
+import { QueryClient } from "@tanstack/react-query";
+import { usePostQuery } from "../hooks/usePostQuery";
 const StyledLogo = styled.img`
   margin-left: 25px;
   padding: 0;
@@ -36,6 +38,15 @@ const StyledHeader = styled.div`
     left: 0px;
     transform: scaleX(-1);
   }
+`;
+const StyledSideContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
 `;
 const StyledImageContainer = styled.div`
   width: 55px;
@@ -83,9 +94,18 @@ const StyledName = styled.div`
 const Header = () => {
   const { accessTokenQuery } = useAccessTokenQuery(undefined);
   const { userQuery } = useUserQuery();
+  const { postQuery } = usePostQuery();
+
   const navigate = useNavigate();
   console.log(userQuery.data);
   const [open, setOpen] = useState(false);
+  const logoutHandler = () => {
+    accessTokenQuery.remove();
+    userQuery.remove();
+    postQuery.remove();
+    console.log(accessTokenQuery.data);
+    navigate("/");
+  };
   const firstName = userQuery.data?.localizedFirstName;
   const lastName = userQuery.data?.localizedLastName;
   const imageUrl = userQuery.data?.profilePicture
@@ -105,18 +125,25 @@ const Header = () => {
   return (
     <StyledHeader>
       <StyledLogo onClick={() => navigate("/")} src={Logo} />
-      {accessTokenQuery.data ? (
-        <>
-          {open && (
-            <StyledName>
-              Hello, {firstName} {lastName}!
-            </StyledName>
-          )}
-          <StyledImageContainer onClick={() => setOpen(!open)}>
-            <StyledImage src={imageUrl} />
-          </StyledImageContainer>
-        </>
-      ) : null}
+      <StyledSideContainer>
+        {accessTokenQuery.data ? (
+          <>
+            {open && (
+              <>
+                <StyledName>
+                  Hello, {firstName} {lastName}!
+                </StyledName>
+              </>
+            )}
+            <StyledImageContainer onClick={() => setOpen(!open)}>
+              <StyledImage src={imageUrl} />
+            </StyledImageContainer>
+            <button onClick={logoutHandler} style={{ zIndex: 5 }}>
+              Logout
+            </button>
+          </>
+        ) : null}
+      </StyledSideContainer>
     </StyledHeader>
   );
 };

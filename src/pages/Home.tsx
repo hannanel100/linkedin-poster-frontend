@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LoginButton from "../components/LoginButton";
 import NavBar from "../components/NavBar";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
@@ -75,12 +77,24 @@ const StyledTextContainer = styled.div`
   }
 `;
 const Home = () => {
+  const navigate = useNavigate();
   const { accessTokenQuery } = useAccessTokenQuery(undefined);
   const { addUserQuery } = useUserQuery();
-  console.log(addUserQuery?.data);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    console.log("accessTokenQuery.data", accessTokenQuery.data);
+    if (accessTokenQuery?.data) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+      navigate("/");
+    }
+  }, [accessTokenQuery?.data]);
+
   return (
     <StyledHomeContainer>
-      {!accessTokenQuery.data ? (
+      {!isAuthenticated ? (
         <StyledFlex>
           <StyledLogo src={Logo} />
 
