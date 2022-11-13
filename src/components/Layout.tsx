@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import styled from "styled-components/macro";
 const StyledContainer = styled.div`
   display: flex;
@@ -22,12 +23,18 @@ const Layout = () => {
   return (
     <>
       {history.pathname !== "/" ? (
-        <StyledContainer>
-          <NavBar isHome={false} />
-          <Outlet />
-        </StyledContainer>
+        <>
+          <StyledContainer>
+            <NavBar isHome={false} />
+            <Outlet />
+          </StyledContainer>
+          <Footer />
+        </>
       ) : (
-        <Outlet />
+        <>
+          <Outlet />
+          <Footer />
+        </>
       )}
     </>
   );
