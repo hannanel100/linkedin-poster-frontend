@@ -18,15 +18,16 @@ const StyledNav = styled.nav<StyledNavProps>`
   justify-content: space-evenly;
   align-items: ${(props) => (props.isHome ? "center" : "flex-start")};
   /* media query for mobile phones */
-  @media (max-width: 768px) {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    align-items: center;
-    height: 10vh;
-  }
+  ${(props) =>
+    !props.isHome &&
+    `@media (max-width: 768px) {
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  height: 10vh;
+  `}
 `;
 
 const StyledLink = styled(Link)<StyledNavProps>`
@@ -51,7 +52,9 @@ const StyledLink = styled(Link)<StyledNavProps>`
       3px 3px 0 #ffffff;
   }
   /* media query for mobile phones */
-  @media (max-width: 768px) {
+  ${(props) =>
+    !props.isHome
+      ? `@media (max-width: 768px) {
     /* change text to icons */
     font-size: 1.5rem;
     padding: 0;
@@ -64,19 +67,14 @@ const StyledLink = styled(Link)<StyledNavProps>`
     &:active {
       color: white;
     }
-  }
-
-  /* reverse hover effect when leaving */
+  }`
+      : `@media(max-width: 768px){
+    font-size: 3rem;
+  }`}/* reverse hover effect when leaving */
 `;
 const NavBar = ({ isHome }: StyledNavProps) => {
   return (
     <StyledNav isHome={isHome}>
-      {/* links to pages /post, /posts, /about */}
-      {/* {!isHome && (
-        <StyledLink to="/" isHome={false}>
-          Home
-        </StyledLink>
-      )} */}
       <StyledLink to="/post" isHome={isHome}>
         Add Post
       </StyledLink>
