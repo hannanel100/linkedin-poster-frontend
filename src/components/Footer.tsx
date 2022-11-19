@@ -4,6 +4,7 @@ import {
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
@@ -45,13 +46,13 @@ const Footer = () => {
       </StyledCopyright>
       <StyledLinks>
         <a href="https://github.com/hannanel100">
-          <FontAwesomeIcon icon={faGithub} />
+          <FontAwesomeIcon icon={faGithub as IconProp} />
         </a>
         <a href="https://www.linkedin.com/in/hannanel-gershinsky/">
-          <FontAwesomeIcon icon={faLinkedin} />
+          <FontAwesomeIcon icon={faLinkedin as IconProp} />
         </a>
         <a href="https://twitter.com/hannanel100">
-          <FontAwesomeIcon icon={faTwitter} />
+          <FontAwesomeIcon icon={faTwitter as IconProp} />
         </a>
       </StyledLinks>
     </StyledFooter>

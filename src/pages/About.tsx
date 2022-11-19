@@ -1,6 +1,7 @@
 import styled from "styled-components";
 // import fontawesome brand icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faGithub,
   faLinkedin,
@@ -37,13 +38,13 @@ const About = () => {
       </p>
       <StyledLinks>
         <a href="https://github.com/hannanel100">
-          <FontAwesomeIcon icon={faGithub} />
+          <FontAwesomeIcon icon={faGithub as IconProp} />
         </a>
         <a href="https://www.linkedin.com/in/hannanel-gershinsky/">
-          <FontAwesomeIcon icon={faLinkedin} />
+          <FontAwesomeIcon icon={faLinkedin as IconProp} />
         </a>
         <a href="https://twitter.com/hannanel100">
-          <FontAwesomeIcon icon={faTwitter} />
+          <FontAwesomeIcon icon={faTwitter as IconProp} />
         </a>
       </StyledLinks>
     </StyledMain>
