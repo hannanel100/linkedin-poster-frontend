@@ -7,7 +7,7 @@ export const useAccessTokenQuery = (code: string | undefined) => {
     ["accessToken"],
     async () => {
       const { data } = await axios.get(
-        `http://localhost:5000/api/auth/accessToken/${code}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/accessToken/${code}`
       );
       return data;
     },
@@ -22,7 +22,7 @@ export const useAccessTokenQuery = (code: string | undefined) => {
   // //   ["tokenIntrospect"],
   // //   async () => {
   // //     const { data } = await axios.get(
-  // //       `http://localhost:5000/api/auth/accessToken/introspect/${accessTokenQuery.data?.access_token}`
+  // //       `${import.meta.env.VITE_BACKEND_URL}/api/auth/accessToken/introspect/${accessTokenQuery.data?.access_token}`
   // //     );
   // //     return data;
   // //   },

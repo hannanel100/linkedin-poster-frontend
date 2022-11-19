@@ -133,10 +133,13 @@ const Form = ({
     async (postId: string | undefined) => {
       if (postId) {
         console.log("in if(postId");
-        await axios.put(`http://localhost:5000/api/posts/${postId}`, body);
+        await axios.put(
+          `${import.meta.env.VITE_BACKEND_URL}/api/posts/${postId}`,
+          body
+        );
       } else {
         console.log("in else");
-        await axios.post("http://localhost:5000/api/posts", body);
+        await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/posts`, body);
       }
     },
 
@@ -205,14 +208,14 @@ const Form = ({
                   onChange={handleTextChange}
                 />
               </StyledRow>
-
-              <StyledRow>
+              {/* TODO: currently removing option to upload image */}
+              {/* <StyledRow>
                 <StyledImageIcon
                   icon={faImage}
                   size="2x"
                   onClick={() => setShowImage(!showImage)}
                 />
-              </StyledRow>
+              </StyledRow> */}
               {showImage && (
                 <StyledRow>
                   <StyledLabel htmlFor="image">Image</StyledLabel>

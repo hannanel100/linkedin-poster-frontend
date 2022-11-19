@@ -49,29 +49,13 @@ const StyledButton = styled.button`
 `;
 
 const LoginButton = () => {
-  const [accessToken, setAccessToken] = useState<accessToken | undefined>(
-    undefined
-  );
   const [code, setCode] = useState<string | undefined>(undefined);
-  // query to get user details
-  // const userQuery = useQuery(
-  //   ["user"],
-  //   async () => {
-  //     const { data } = await axios.get(
-  //       `http://localhost:5000/api/users/linkedin/user/${accessToken?.access_token}`
-  //     );
-  //     return data;
-  //   },
-  //   {
-  //     enabled: !!accessToken?.access_token,
-  //   }
-  // );
+
   const { accessTokenQuery } = useAccessTokenQuery(code);
-  // setAccessToken(accessTokenQuery.data);
-  // console.log(tokenIntrospectQuery.data);
+
   const { linkedInLogin } = useLinkedIn({
-    clientId: "77oz8xd2w9jzop",
-    redirectUri: `http://localhost:5173/linkedin`,
+    clientId: import.meta.env.VITE_CLIENT_ID as string,
+    redirectUri: `${window.location.origin}/linkedin`,
     scope: "r_liteprofile w_member_social",
     state: "123456",
     onSuccess: async (code) => {

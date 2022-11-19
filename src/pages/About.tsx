@@ -1,3 +1,4 @@
+import styled from "styled-components";
 // import fontawesome brand icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -5,10 +6,22 @@ import {
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-
+const StyledMain = styled.main`
+  flex: 4 2 0;
+`;
+const StyledLinks = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3rem;
+  flex: 1 1 0;
+  a {
+    color: white;
+  }
+`;
 const About = () => {
   return (
-    <div>
+    <StyledMain>
       <h1>Welcome to pigeon</h1>
       <p>
         Hi, my name is Hannanel, and I am the creator of pigeon. You can check
@@ -22,17 +35,18 @@ const About = () => {
       <p>
         If you see any bugs, reach out to me and i'll get on to them real quick.
       </p>
-
-      <a href="https://github.com/hannanel100">
-        <FontAwesomeIcon icon={faGithub} />
-      </a>
-      <a href="https://www.linkedin.com/in/hannanel-gershinsky/">
-        <FontAwesomeIcon icon={faLinkedin} />
-      </a>
-      <a href="https://twitter.com/hannanel100">
-        <FontAwesomeIcon icon={faTwitter} />
-      </a>
-    </div>
+      <StyledLinks>
+        <a href="https://github.com/hannanel100">
+          <FontAwesomeIcon icon={faGithub} />
+        </a>
+        <a href="https://www.linkedin.com/in/hannanel-gershinsky/">
+          <FontAwesomeIcon icon={faLinkedin} />
+        </a>
+        <a href="https://twitter.com/hannanel100">
+          <FontAwesomeIcon icon={faTwitter} />
+        </a>
+      </StyledLinks>
+    </StyledMain>
   );
 };
 

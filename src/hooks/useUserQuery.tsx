@@ -121,7 +121,9 @@ export const useUserQuery = () => {
     async () => {
       //
       const { data }: { data: UserObject } = await axios.get(
-        `http://localhost:5000/api/users/linkedin/user/${accessToken?.access_token}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/linkedin/user/${
+          accessToken?.access_token
+        }`
       );
       return data;
     },
@@ -136,7 +138,7 @@ export const useUserQuery = () => {
     ["addUser"],
     async () => {
       const { data } = await axios.post(
-        `http://localhost:5000/api/users/linkedin/user`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/users/linkedin/user`,
         {
           id: userQuery.data?.id,
           accessToken: accessToken?.access_token,

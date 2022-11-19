@@ -5,7 +5,7 @@ import { useUserQuery } from "./useUserQuery";
 const fetchPosts = async (userId: string | undefined) => {
   const options = {
     method: "GET",
-    url: "http://localhost:5000/api/posts",
+    url: `${import.meta.env.VITE_BACKEND_URL}/api/posts`,
     params: { userId: userId },
   };
   try {

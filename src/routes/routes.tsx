@@ -16,15 +16,13 @@ export const CustomRoutes = () => {
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path="linkedin" element={<LinkedinCallbackWrapper />} />
+
         <Route element={<ProtectedRoutes />}>
           <Route path="about" element={<About />} />
           <Route path="post" element={<Post />} />
           <Route path="posts" element={<Posts />} />
-          {/* Using path="*"" means "match anything", so this route
-            acts like a catch-all for URLs that we don't have explicit
-            routes for. */}
         </Route>
-        <Route path="linkedin" element={<LinkedinCallbackWrapper />} />
 
         <Route path="*" element={<NoMatch />} />
       </Route>

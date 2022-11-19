@@ -6,8 +6,12 @@ import { useUserQuery } from "../hooks/useUserQuery";
 import Logo from "../assets/pigeon_transparent.svg";
 import styled from "styled-components/macro";
 import LoadingSpinner from "./LoadingSpinner";
-import { QueryClient } from "@tanstack/react-query";
 import { usePostQuery } from "../hooks/usePostQuery";
+import { useDelayUnmount } from "../hooks/useDelayUnmount";
+
+type StyledNameProps = {
+  open: boolean;
+};
 const StyledLogo = styled.img`
   margin-left: 25px;
   padding: 0;
@@ -74,31 +78,29 @@ const StyledImage = styled.img`
   top: 2.5px;
   left: 2.5px;
 `;
-const StyledName = styled.div`
+const StyledName = styled.div<StyledNameProps>`
   font-family: "Roboto", sans-serif;
   background-color: #fff;
   color: #000;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
+  z-index: 5;
   /* animation to slide to the left */
-  animation: slideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  @keyframes slideIn {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(0%);
-    }
-  }
+opacity: ${(props) => (props.open ? "1" : "0")};
+  transition: ${(props) =>
+    props.open
+      ? `opacity 0.5s cubic-bezier(.7,.04,1,.84)`
+      : `opacity 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)`};
 `;
 const Header = () => {
   const { accessTokenQuery } = useAccessTokenQuery(undefined);
   const { userQuery } = useUserQuery();
   const { postQuery } = usePostQuery();
+  const [open, setOpen] = useState(false);
+  const shouldRenderChild = useDelayUnmount(open, 500);
 
   const navigate = useNavigate();
   console.log(userQuery.data);
-  const [open, setOpen] = useState(false);
   const logoutHandler = () => {
     accessTokenQuery.remove();
     userQuery.remove();
@@ -128,9 +130,9 @@ const Header = () => {
       <StyledSideContainer>
         {accessTokenQuery.data ? (
           <>
-            {open && (
+            {shouldRenderChild && (
               <>
-                <StyledName>
+                <StyledName open={open}>
                   Hello, {firstName} {lastName}!
                 </StyledName>
               </>

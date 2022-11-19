@@ -112,7 +112,7 @@ const Posts = () => {
   );
   const deletePostHandler = async (_id: string | undefined) => {
     console.log(_id);
-    await axios.delete(`http://localhost:5000/api/posts/${_id}`);
+    await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/posts/${_id}`);
     postQuery.refetch();
   };
   const editPostHandler = async (_id: string | undefined) => {

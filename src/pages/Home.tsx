@@ -94,6 +94,7 @@ const Home = () => {
     }
   }, [accessTokenQuery?.data]);
 
+  console.log(import.meta.env.VITE_VITE_BACKEND_URL);
   return (
     <StyledHomeContainer>
       {!isAuthenticated ? (
