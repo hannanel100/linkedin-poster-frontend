@@ -46,6 +46,9 @@ jobs:
         run: |
           unset CI
           npm run build
+        env:
+          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+          VITE_CLIENT_ID: ${{ secrets.VITE_CLIENT_ID }}
 
       # Deploy to the S3 server
       - name: Deploy to S3
