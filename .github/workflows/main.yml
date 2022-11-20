@@ -44,7 +44,6 @@ jobs:
       # Build an optimized production build
       - name: Production build
         run: |
-          unset CI
           npm run build
         env:
           VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
