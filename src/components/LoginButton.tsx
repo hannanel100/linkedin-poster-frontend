@@ -1,21 +1,13 @@
 // login button component
 import { useState } from "react";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
-// import useQuery
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
 import styled from "styled-components/macro";
 import LoadingSpinner from "./LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { useUserQuery } from "../hooks/useUserQuery";
+import {  IconProp } from '@fortawesome/fontawesome-svg-core';
 
-// axios with body to https://www.linkedin.com/oauth/v2/accessToken'
-type accessToken = {
-  access_token: string;
-  expires_in: number;
-};
 const StyledButtonContainer = styled.div`
   width: 300px;
   height: 70px;
@@ -76,7 +68,7 @@ const LoginButton = () => {
   return (
     <StyledButtonContainer>
       <StyledButton onClick={linkedInLogin}>
-        <FontAwesomeIcon icon={faLinkedin} size="3x" color="#242424" />
+        <FontAwesomeIcon icon={faLinkedin as IconProp} size="3x" color="#242424" />
         Sign in with Linkedin
       </StyledButton>
     </StyledButtonContainer>

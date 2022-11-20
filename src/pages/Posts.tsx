@@ -1,7 +1,4 @@
-import React, { useState } from "react";
-import { useReactTable, createColumnHelper } from "@tanstack/react-table";
-import { useQuery } from "@tanstack/react-query";
-import { useUserQuery } from "../hooks/useUserQuery";
+import { useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import styled from "styled-components/macro";
@@ -10,6 +7,7 @@ import { faXmark, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal";
 import { usePostQuery } from "../hooks/usePostQuery";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 export interface Posts {
   message: string;
   posts: Post[];
@@ -136,11 +134,11 @@ const Posts = () => {
                       <p>{dayjs(post.date).format("DD/MM/YYYY HH:mm")}</p>
                       {post.image && <StyledImage src={post.image} />}
                       <StyledFontAwesomeIcon
-                        icon={faEdit}
+                        icon={faEdit as IconProp}
                         onClick={() => editPostHandler(post._id)}
                       />
                       <StyledFontAwesomeIcon
-                        icon={faXmark}
+                        icon={faXmark as IconProp}
                         onClick={() => deletePostHandler(post._id)}
                       />
                     </StyledCard>

@@ -3,6 +3,7 @@ import * as dayjs from "dayjs";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // import image icon form fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "./Button";
 import axios from "axios";
@@ -211,7 +212,7 @@ const Form = ({
               {/* TODO: currently removing option to upload image */}
               {/* <StyledRow>
                 <StyledImageIcon
-                  icon={faImage}
+                  icon={faImage as IconProp}
                   size="2x"
                   onClick={() => setShowImage(!showImage)}
                 />
