@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../components/Modal";

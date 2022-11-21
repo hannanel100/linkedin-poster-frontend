@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;

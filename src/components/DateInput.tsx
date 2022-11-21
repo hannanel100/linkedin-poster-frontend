@@ -1,7 +1,7 @@
 // date input, type datetime-local, with min value set to today's date, and time limited to every round hour
 // styled with styled-components in glassmorphism style
 
-import styled from "styled-components/macro";
+import styled from "styled-components";
 // type for props
 type DateInputProps = {
   // onChange function

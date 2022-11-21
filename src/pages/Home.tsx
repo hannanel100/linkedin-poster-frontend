@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import LoginButton from "../components/LoginButton";
 import NavBar from "../components/NavBar";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { useUserQuery } from "../hooks/useUserQuery";
 import Logo from "../assets/pigeon_transparent.svg";
 

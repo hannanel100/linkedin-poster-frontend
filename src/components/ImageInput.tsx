@@ -1,7 +1,7 @@
 //an input with type file, that accepts props of type ImageInputProps
 // styled with styled components and glassmorphism effect
 
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import { Button } from "./Button";
 type ImageInputProps = {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

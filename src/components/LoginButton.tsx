@@ -2,11 +2,11 @@
 import { useState } from "react";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import LoadingSpinner from "./LoadingSpinner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import {  IconProp } from '@fortawesome/fontawesome-svg-core';
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 
 const StyledButtonContainer = styled.div`
   width: 300px;
@@ -68,7 +68,11 @@ const LoginButton = () => {
   return (
     <StyledButtonContainer>
       <StyledButton onClick={linkedInLogin}>
-        <FontAwesomeIcon icon={faLinkedin as IconProp} size="3x" color="#242424" />
+        <FontAwesomeIcon
+          icon={faLinkedin as IconProp}
+          size="3x"
+          color="#242424"
+        />
         Sign in with Linkedin
       </StyledButton>
     </StyledButtonContainer>

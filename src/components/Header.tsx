@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAccessTokenQuery } from "../hooks/useAccessTokenQuery";
 import { useUserQuery } from "../hooks/useUserQuery";
 import Logo from "../assets/pigeon_transparent.svg";
-import styled from "styled-components/macro";
+import styled from "styled-components";
 import LoadingSpinner from "./LoadingSpinner";
 import { usePostQuery } from "../hooks/usePostQuery";
 import { useDelayUnmount } from "../hooks/useDelayUnmount";
@@ -86,7 +86,7 @@ const StyledName = styled.div<StyledNameProps>`
   border-radius: 0.5rem;
   z-index: 5;
   /* animation to slide to the left */
-opacity: ${(props) => (props.open ? "1" : "0")};
+  opacity: ${(props) => (props.open ? "1" : "0")};
   transition: ${(props) =>
     props.open
       ? `opacity 0.5s cubic-bezier(.7,.04,1,.84)`

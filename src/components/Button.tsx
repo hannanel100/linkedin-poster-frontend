@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from "styled-components";
 // type for props
 type ButtonProps = {
   // text for button
