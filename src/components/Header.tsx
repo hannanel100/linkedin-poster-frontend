@@ -100,12 +100,10 @@ const Header = () => {
   const shouldRenderChild = useDelayUnmount(open, 500);
 
   const navigate = useNavigate();
-  console.log(userQuery.data);
   const logoutHandler = () => {
     accessTokenQuery.remove();
     userQuery.remove();
     postQuery.remove();
-    console.log(accessTokenQuery.data);
     navigate("/");
   };
   const firstName = userQuery.data?.localizedFirstName;

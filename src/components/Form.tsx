@@ -209,14 +209,13 @@ const Form = ({
                   onChange={handleTextChange}
                 />
               </StyledRow>
-              {/* TODO: currently removing option to upload image */}
-              {/* <StyledRow>
+              <StyledRow>
                 <StyledImageIcon
                   icon={faImage as IconProp}
                   size="2x"
                   onClick={() => setShowImage(!showImage)}
                 />
-              </StyledRow> */}
+              </StyledRow>
               {showImage && (
                 <StyledRow>
                   <StyledLabel htmlFor="image">Image</StyledLabel>

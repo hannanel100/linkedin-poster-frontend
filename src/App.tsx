@@ -4,7 +4,6 @@ import { CustomRoutes } from "./routes/routes";
 import Header from "./components/Header";
 function App() {
   const queryClient = new QueryClient();
-
   return (
     <QueryClientProvider client={queryClient}>
       <Header />

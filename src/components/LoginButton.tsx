@@ -44,7 +44,7 @@ const LoginButton = () => {
   const [code, setCode] = useState<string | undefined>(undefined);
 
   const { accessTokenQuery } = useAccessTokenQuery(code);
-
+  console.log(`${window.location.origin}/linkedin`);
   const { linkedInLogin } = useLinkedIn({
     clientId: import.meta.env.VITE_CLIENT_ID as string,
     redirectUri: `${window.location.origin}/linkedin`,

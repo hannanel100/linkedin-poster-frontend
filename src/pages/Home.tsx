@@ -85,7 +85,6 @@ const Home = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log("accessTokenQuery.data", accessTokenQuery.data);
     if (accessTokenQuery?.data) {
       setIsAuthenticated(true);
     } else {
@@ -94,13 +93,11 @@ const Home = () => {
     }
   }, [accessTokenQuery?.data]);
 
-  console.log(import.meta.env.VITE_VITE_BACKEND_URL);
   return (
     <StyledHomeContainer>
       {!isAuthenticated ? (
         <StyledFlex>
           <StyledLogo src={Logo} />
-
           {/* explanation about pigeon post as a historical thing */}
           <StyledTextContainer>
             <p>
