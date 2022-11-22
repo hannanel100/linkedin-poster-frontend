@@ -125,7 +125,7 @@ const Posts = () => {
           {postQuery.isLoading ? (
             <LoadingSpinner />
           ) : (
-            localPosts.map(
+            localPosts?.map(
               (post: Post) =>
                 !post.isPosted && (
                   <StyledLi key={post._id}>
