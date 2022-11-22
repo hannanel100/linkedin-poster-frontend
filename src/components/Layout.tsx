@@ -10,6 +10,7 @@ const StyledContainer = styled.div`
   width: 100%;
   height: 100vh;
   flex: 6 1 auto;
+  margin-bottom: 2rem;
   /* media query for mobile, change direction to column */
   @media (max-width: 768px) {
     display: block;
