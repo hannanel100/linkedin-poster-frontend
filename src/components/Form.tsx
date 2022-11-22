@@ -122,7 +122,8 @@ const Form = ({
   };
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
-    setDate(dayjs(e.target.value).format("YYYY-MM-DD HH:mm"));
+    // setDate(dayjs(e.target.value).format("YYYY-MM-DD HH:mm"));
+    setDate(e.target.value);
   };
   const body: Post = {
     content: text,
