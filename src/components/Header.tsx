@@ -23,7 +23,7 @@ const StyledHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   gap: 1rem;
   width: 100%;
   height: 90px;

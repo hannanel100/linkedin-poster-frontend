@@ -19,7 +19,7 @@ import { Post } from "../pages/Posts";
 import LoadingSpinner from "./LoadingSpinner";
 const StyledContainer = styled.div`
   width: 100%;
-  /* height: 100%; */
+  height: 100%;
   flex: 4 1 0;
   /* mobile media query */
   @media (max-width: 768px) {
