@@ -31,7 +31,7 @@ const StyledHeader = styled.div`
   box-shadow: 0px 4px 9px 5px rgba(0, 0, 0, 0.82);
   z-index: 1;
   &::before {
-    background-image: url("/header-background.jpeg");
+    background-image: url("https://res.cloudinary.com/divvyla3a/image/upload/v1669282396/pigeon-assets/header-background_fpqcyo.jpg");
     opacity: 0.7;
     content: "";
     background-size: cover;
