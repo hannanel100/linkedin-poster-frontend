@@ -1,5 +1,6 @@
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CustomRoutes } from "./routes/routes";
 import Header from "./components/Header";
 function App() {
@@ -8,6 +9,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Header />
       <CustomRoutes />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
