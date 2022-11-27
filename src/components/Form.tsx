@@ -122,13 +122,16 @@ const Form = ({
   };
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value);
-    // setDate(dayjs(e.target.value).format("YYYY-MM-DD HH:mm"));
+    console.log(dayjs(e.target.value).utc().format("YYYY-MM-DD HH:mm"));
+    // turn e.target.value into string in utc timezone
+    const date = dayjs(e.target.value).utc().format();
+
     setDate(e.target.value);
   };
   const body: Post = {
     content: text,
     image: convertedImage,
-    date: date,
+    date: dayjs(date).utc().format("YYYY-MM-DD HH:mm"),
     id: addUserQuery.data?.id,
     isPosted: false,
   };

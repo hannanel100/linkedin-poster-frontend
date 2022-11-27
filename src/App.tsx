@@ -2,6 +2,9 @@ import "./App.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { CustomRoutes } from "./routes/routes";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 import Header from "./components/Header";
 function App() {
   const queryClient = new QueryClient();
