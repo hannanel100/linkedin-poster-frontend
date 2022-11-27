@@ -131,7 +131,7 @@ const Form = ({
   const body: Post = {
     content: text,
     image: convertedImage,
-    date: new Date(date).toISOString(),
+    date: date !== "" ? new Date(date).toISOString() : date,
     id: addUserQuery.data?.id,
     isPosted: false,
   };
