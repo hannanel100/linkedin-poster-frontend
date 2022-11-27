@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import * as dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 // import image icon form fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
