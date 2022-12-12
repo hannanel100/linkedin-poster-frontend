@@ -97,7 +97,7 @@ const Home = () => {
     <StyledHomeContainer>
       {!isAuthenticated ? (
         <StyledFlex>
-          <StyledLogo src={Logo} />
+          <StyledLogo src={Logo} alt="Pigeon Logo" />
           {/* explanation about pigeon post as a historical thing */}
           <StyledTextContainer>
             <p>

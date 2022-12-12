@@ -115,7 +115,7 @@ const Header = () => {
   if (userQuery.isInitialLoading) {
     return (
       <StyledHeader>
-        <StyledLogo src={Logo} />
+        <StyledLogo src={Logo} alt="Pigeon Logo" />
         <StyledImageContainer>
           <LoadingSpinner width="40" height="40" />
         </StyledImageContainer>
@@ -136,7 +136,7 @@ const Header = () => {
               </>
             )}
             <StyledImageContainer onClick={() => setOpen(!open)}>
-              <StyledImage src={imageUrl} />
+              <StyledImage src={imageUrl} alt="Pigeon Logo" />
             </StyledImageContainer>
             <button onClick={logoutHandler} style={{ zIndex: 5 }}>
               Logout
