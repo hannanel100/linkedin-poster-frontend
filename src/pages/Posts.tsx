@@ -56,6 +56,14 @@ const StyledCard = styled.div`
     flex: 1 1 0;
   }
 `;
+
+const StyledContent = styled.p`
+  /* make sure to not only show first line, then 3 dots */
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
 const StyledUl = styled.ul`
   margin: 0;
   padding: 0;
@@ -103,6 +111,10 @@ const Posts = () => {
     // sort posts by date using dayjs
     dayjs(a.date).isAfter(dayjs(b.date)) ? 1 : -1
   );
+  console.log(
+    "🚀 ~ file: Posts.tsx ~ line 114 ~ Posts ~ localPosts",
+    localPosts
+  );
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedPost, setSelectedPost] = useState<string | undefined>(
@@ -130,7 +142,7 @@ const Posts = () => {
                 !post.isPosted && (
                   <StyledLi key={post._id}>
                     <StyledCard>
-                      <p>{post.content}</p>
+                      <StyledContent>{post.content}</StyledContent>
                       <p>{dayjs(post.date).format("DD/MM/YYYY HH:mm")}</p>
                       {post.image && <StyledImage src={post.image} />}
                       <StyledFontAwesomeIcon
