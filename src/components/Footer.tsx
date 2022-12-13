@@ -45,13 +45,16 @@ const Footer = () => {
         Gershinsky
       </StyledCopyright>
       <StyledLinks>
-        <a href="https://github.com/hannanel100">
+      <a href="https://github.com/hannanel100" aria-label="link to github">
           <FontAwesomeIcon icon={faGithub as IconProp} />
         </a>
-        <a href="https://www.linkedin.com/in/hannanel-gershinsky/">
+        <a
+          href="https://www.linkedin.com/in/hannanel-gershinsky/"
+          aria-label="link to linkedin"
+        >
           <FontAwesomeIcon icon={faLinkedin as IconProp} />
         </a>
-        <a href="https://twitter.com/hannanel100">
+        <a href="https://twitter.com/hannanel100" aria-label="link to twitter">
           <FontAwesomeIcon icon={faTwitter as IconProp} />
         </a>
       </StyledLinks>
