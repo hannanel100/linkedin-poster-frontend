@@ -124,7 +124,7 @@ const Header = () => {
   }
   return (
     <StyledHeader>
-      <StyledLogo onClick={() => navigate("/")} src={Logo} />
+      <StyledLogo onClick={() => navigate("/")} src={Logo} alt="Pigeon Logo" />
       <StyledSideContainer>
         {accessTokenQuery.data ? (
           <>
@@ -136,7 +136,7 @@ const Header = () => {
               </>
             )}
             <StyledImageContainer onClick={() => setOpen(!open)}>
-              <StyledImage src={imageUrl} alt="Pigeon Logo" />
+              <StyledImage src={imageUrl} alt="Avatar" />
             </StyledImageContainer>
             <button onClick={logoutHandler} style={{ zIndex: 5 }}>
               Logout
