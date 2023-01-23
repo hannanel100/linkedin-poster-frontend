@@ -24,6 +24,7 @@ const StyledTextArea = styled.textarea`
   font-weight: 600;
   padding: 1rem;
   flex: 3 1 0;
+  max-width: 95%;
   transition: all 0.5s ease-in-out;
   /* remove border on focus-visible */
   &:focus-visible {

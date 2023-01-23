@@ -107,10 +107,12 @@ const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
 `;
 const Posts = () => {
   const { postQuery, posts } = usePostQuery();
-  const localPosts: Post[] = postQuery?.data?.posts.sort((a: Post, b: Post) =>
-    // sort posts by date using dayjs
-    dayjs(a.date).isAfter(dayjs(b.date)) ? 1 : -1
-  );
+  const localPosts: Post[] = postQuery?.data?.posts
+    .sort((a: Post, b: Post) =>
+      // sort posts by date using dayjs
+      dayjs(a.date).isAfter(dayjs(b.date)) ? 1 : -1
+    )
+    .filter((post: Post, index: number) => post.isPosted === false);
   console.log(
     "🚀 ~ file: Posts.tsx ~ line 114 ~ Posts ~ localPosts",
     localPosts
@@ -136,28 +138,33 @@ const Posts = () => {
         <StyledUl>
           {postQuery.isLoading ? (
             <LoadingSpinner />
+          ) : localPosts.length > 0 ? (
+            localPosts?.map((post: Post) => (
+              <StyledLi key={post._id}>
+                <StyledCard>
+                  <StyledContent>{post.content}</StyledContent>
+                  <p>{dayjs(post.date).format("DD/MM/YYYY HH:mm")}</p>
+                  {post.image && <StyledImage src={post.image} />}
+                  <StyledFontAwesomeIcon
+                    icon={faEdit as IconProp}
+                    onClick={() => editPostHandler(post._id)}
+                  />
+                  <StyledFontAwesomeIcon
+                    icon={faXmark as IconProp}
+                    onClick={() => deletePostHandler(post._id)}
+                  />
+                </StyledCard>
+              </StyledLi>
+            ))
           ) : (
-            localPosts?.map(
-              (post: Post) =>
-                !post.isPosted && (
-                  <StyledLi key={post._id}>
-                    <StyledCard>
-                      <StyledContent>{post.content}</StyledContent>
-                      <p>{dayjs(post.date).format("DD/MM/YYYY HH:mm")}</p>
-                      {post.image && <StyledImage src={post.image} />}
-                      <StyledFontAwesomeIcon
-                        icon={faEdit as IconProp}
-                        onClick={() => editPostHandler(post._id)}
-                      />
-                      <StyledFontAwesomeIcon
-                        icon={faXmark as IconProp}
-                        onClick={() => deletePostHandler(post._id)}
-                      />
-                    </StyledCard>
-                  </StyledLi>
-                )
-            )
+            <StyledCard>
+              <StyledContent>No posts scheduled yet</StyledContent>
+            </StyledCard>
           )}
+          {/* {console.log(
+            "🚀 ~ file: Posts.tsx:161 ~ Posts ~ localPosts",
+            localPosts
+          )} */}
         </StyledUl>
       ) : (
         <Modal

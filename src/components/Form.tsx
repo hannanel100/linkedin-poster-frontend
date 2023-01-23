@@ -19,6 +19,7 @@ import { useUserQuery } from "../hooks/useUserQuery";
 import { usePostQuery } from "../hooks/usePostQuery";
 import { Post } from "../pages/Posts";
 import LoadingSpinner from "./LoadingSpinner";
+import Confetti from "./Confetti";
 const StyledContainer = styled.div`
   width: 100%;
   height: 100%;
@@ -33,10 +34,14 @@ const StyledContainer = styled.div`
 // a dark card with gradient background, in glassmorphism style
 const StyledCard = styled.div`
   width: 50vw;
+  min-height: 600px;
   /* height: 100%;
   padding: 2rem; */
   background: var(--gradient);
   border-radius: 1rem;
+  display: grid;
+  place-content: center;
+  margin-top: 2rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   @media (max-width: 768px) {
     width: 100%;
@@ -68,6 +73,11 @@ const StyledLabel = styled.label`
 `;
 const StyledImageIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
+  /* hover and focus states */
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
 `;
 const StyledTitle = styled.h1`
   padding-left: 1rem;
@@ -214,13 +224,15 @@ const Form = ({
                   onChange={handleTextChange}
                 />
               </StyledRow>
-              <StyledRow>
+              {/* <StyledRow>
+                <StyledLabel htmlFor="imageIcon">Add Image</StyledLabel>
                 <StyledImageIcon
                   icon={faImage as IconProp}
                   size="2x"
                   onClick={() => setShowImage(!showImage)}
+                  name="imageIcon"
                 />
-              </StyledRow>
+              </StyledRow> */}
               {showImage && (
                 <StyledRow>
                   <StyledLabel htmlFor="image">Image</StyledLabel>
@@ -260,7 +272,10 @@ const Form = ({
         ) : mutation.isLoading ? (
           <LoadingSpinner width="8" height="8" />
         ) : (
-          <h1>Success</h1>
+          <>
+            <h2>Post scheduled successfully!</h2>
+            <Confetti />
+          </>
         )}
       </StyledCard>
     </StyledContainer>
