@@ -40,7 +40,6 @@ const StyledCard = styled.div`
   background: var(--gradient);
   border-radius: 1rem;
   display: grid;
-  place-content: center;
   margin-top: 2rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   @media (max-width: 768px) {
@@ -52,7 +51,7 @@ const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  /* width: 100%; */
+  width: 100%;
   /* max-width: 400px; */
   margin: 0 auto;
   gap: 1rem;
@@ -81,6 +80,10 @@ const StyledImageIcon = styled(FontAwesomeIcon)`
 `;
 const StyledTitle = styled.h1`
   padding-left: 1rem;
+  /* on mobile, change font size */
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 // type for setState function
 

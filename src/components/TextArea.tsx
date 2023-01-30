@@ -25,6 +25,7 @@ const StyledTextArea = styled.textarea`
   padding: 1rem;
   flex: 3 1 0;
   max-width: 95%;
+  min-height: 300px;
   transition: all 0.5s ease-in-out;
   /* remove border on focus-visible */
   &:focus-visible {
@@ -42,8 +43,6 @@ export const TextArea = ({ onChange, value, ...rest }: TextAreaProps) => {
       value={value}
       {...rest}
       placeholder="Enter your post..."
-      rows={15}
-      cols={50}
     />
   );
 };

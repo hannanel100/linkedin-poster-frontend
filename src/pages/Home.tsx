@@ -10,7 +10,6 @@ import Logo from "../assets/pigeon_transparent.svg";
 const StyledHomeContainer = styled.div`
   height: 100%;
   display: grid;
-  place-content: center;
   margin: 0 1rem;
 `;
 const StyledLogo = styled.img`
@@ -32,6 +31,7 @@ const StyledTextContainer = styled.div`
   @media (max-width: 768px) {
     width: 100%;
     overflow: hidden;
+    text-align: center;
   }
   /* animation to bring in each paragraph from left to middle, with bounce effect, with a delay between each paragraph */
   /* apply slide in from left to odd p, slide in from right to even p */
