@@ -40,6 +40,7 @@ const StyledCard = styled.div`
   background: var(--gradient);
   border-radius: 1rem;
   display: grid;
+  /* place-content: center; */
   margin-top: 2rem;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
   @media (max-width: 768px) {
@@ -84,6 +85,12 @@ const StyledTitle = styled.h1`
   @media (max-width: 768px) {
     font-size: 2rem;
   }
+`;
+const StyledCenter = styled.div`
+  display: grid;
+  place-content: center;
+  width: 100%;
+  height: 100%;
 `;
 // type for setState function
 
@@ -275,10 +282,10 @@ const Form = ({
         ) : mutation.isLoading ? (
           <LoadingSpinner width="8" height="8" />
         ) : (
-          <>
+          <StyledCenter>
             <h2>Post scheduled successfully!</h2>
             <Confetti />
-          </>
+          </StyledCenter>
         )}
       </StyledCard>
     </StyledContainer>

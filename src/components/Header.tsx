@@ -51,6 +51,7 @@ const StyledSideContainer = styled.div`
   gap: 1rem;
   width: 100%;
   height: 100%;
+  padding: 0 1rem;
 `;
 const StyledImageContainer = styled.div`
   width: 55px;
@@ -127,7 +128,7 @@ const Header = () => {
       <StyledLogo onClick={() => navigate("/")} src={Logo} alt="Pigeon Logo" />
       <StyledSideContainer>
         {accessTokenQuery.data ? (
-          <>
+          <StyledSideContainer>
             {shouldRenderChild && (
               <>
                 <StyledName open={open}>
@@ -141,7 +142,7 @@ const Header = () => {
             <button onClick={logoutHandler} style={{ zIndex: 5 }}>
               Logout
             </button>
-          </>
+          </StyledSideContainer>
         ) : null}
       </StyledSideContainer>
     </StyledHeader>
